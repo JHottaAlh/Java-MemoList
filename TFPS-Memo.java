@@ -12,6 +12,8 @@
  * ---改善点--- 
  * 要素を連結する順番が変わったり、途中で間に新たな要素が加わった際、
  * ひとつひとつ連番の調整が必要になる　→　クッソ手間
+ *
+ * 参考:http://d.hatena.ne.jp/nowokay/20140408
  */
 ---ダメな例---
 //Creator.Class
@@ -32,13 +34,24 @@ sampleFormat.createRecord();
 
 中略
 
-public String createRecord(){
-  Map<int, String> map = new HashMap<int, String>();
-   
-  map.put(1, "branchId");        //店のID
-  map.put(2, "dealId");          //なんかのID
-  map.put(3, "");                //値段etc
-  .....
+public Map<int, String> createRecord(){
+	
+	Map<int, String> map = new HashMap<int, String>();
+	
+  	map.put(1, "branchId");        //店のID
+ 	map.put(2, "dealId");          //なんかのID
+  	map.put(3, "");                //値段etc
+  	.....
+	return map;
+}
+
+public String getByteRecord(){
+	Map<int, String> map = createRecord();
+	String record = "";
+	for(int i = 1; i < map.size(); i++){
+		record += map.get(i);
+	}
+	return record;
 }
 
 ---改善例--- (利点：間に新しい要素などが追加されても追加したい部分に追記するだけで、他の要素に変更を加える必要がない)
